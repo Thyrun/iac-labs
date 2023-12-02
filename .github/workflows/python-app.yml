@@ -10,14 +10,12 @@ permissions:
   contents: read
 
 jobs:
-  example_matrix:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         version: [10, 12, 14]
         os: [ubuntu-latest, windows-latest]
-  build:
-    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./example-app
@@ -44,6 +42,10 @@ jobs:
             key: ${{ runner.os }}-venv
   lint:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest]
     defaults:
       run:
         working-directory: ./example-app
@@ -71,6 +73,10 @@ jobs:
             poetry run task lint
   formatter:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest]
     defaults:
       run:
         working-directory: ./example-app
@@ -98,6 +104,10 @@ jobs:
             poetry run task formatter
   security:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest]
     defaults:
       run:
         working-directory: ./example-app
@@ -125,6 +135,10 @@ jobs:
             poetry run task security
   tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest]
     defaults:
       run:
         working-directory: ./example-app
