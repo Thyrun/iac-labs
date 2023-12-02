@@ -38,6 +38,9 @@ jobs:
             key: ${{ runner.os }}-venv
   job2:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./example-app
     needs: job1
     steps:
         - name: Install Poetry Action
