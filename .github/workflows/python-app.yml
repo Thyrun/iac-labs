@@ -27,22 +27,12 @@ jobs:
             virtualenvs-create: true
             virtualenvs-in-project: false
             installer-parallel: true
+        - name: Install dependencies
+          run: |
+           poetry install --no-root
   job2:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./example-app
     needs: job1
-    steps:
-    - name: Install dependencies
-      run: |
-       poetry install --no-root
-  job3:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./example-app
-    needs: [job1, job2]
     steps:
     - name: Poetry test
       run: |
