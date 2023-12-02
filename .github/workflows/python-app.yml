@@ -10,28 +10,34 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  job1:
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: ./example-app
-        
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Install Poetry Action
-      uses: snok/install-poetry@v1.3.4
-      with:
-        virtualenvs-create: true
-        virtualenvs-in-project: false
-        installer-parallel: true
+        - uses: actions/checkout@v3
+        - name: Set up Python 3.10
+          uses: actions/setup-python@v3
+          with:
+            python-version: "3.10"
+        - name: Install Poetry Action
+          uses: snok/install-poetry@v1.3.4
+          with:
+            virtualenvs-create: true
+            virtualenvs-in-project: false
+            installer-parallel: true
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
     - name: Install dependencies
       run: |
        poetry install --no-root
+  job3:
+    runs-on: ubuntu-latest
+    needs: [job1, job2]
+    steps:
     - name: Poetry test
       run: |
         poetry run task test
