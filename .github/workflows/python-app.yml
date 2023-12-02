@@ -29,6 +29,9 @@ jobs:
             installer-parallel: true
   job2:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./example-app
     needs: job1
     steps:
     - name: Install dependencies
@@ -36,6 +39,9 @@ jobs:
        poetry install --no-root
   job3:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./example-app
     needs: [job1, job2]
     steps:
     - name: Poetry test
